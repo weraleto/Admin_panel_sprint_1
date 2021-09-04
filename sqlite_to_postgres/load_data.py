@@ -50,7 +50,6 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
 
     num = 1
     for table_name, class_obj in tables_dict.items():
-        postgres_saver.truncate_data(table_name)
         field_list = [i.name for i in fields(class_obj)]
         query = sqlite_loader.load_data(table_name, field_list)
         i = 0
