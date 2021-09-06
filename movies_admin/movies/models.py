@@ -4,12 +4,15 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
 
-class TimeStampedMixin:
+class TimeStampedMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        abstract = True
 
-class Genre(TimeStampedMixin, models.Model):
+
+class Genre(TimeStampedMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
@@ -28,7 +31,7 @@ class FilmworkType(models.TextChoices):
     TV_SHOW = 'tv_show', _('TV Show')
 
 
-class Filmwork(TimeStampedMixin, models.Model):
+class Filmwork(TimeStampedMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(_('title'), max_length=255)
     description = models.TextField(_('description'), blank=True)
@@ -50,7 +53,7 @@ class PersonRoles(models.TextChoices):
     DIRECTOR = 'director', _('director')
 
 
-class Person(TimeStampedMixin, models.Model):
+class Person(TimeStampedMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(_('full name'), max_length=255)
     birth_date = models.DateField(_('birth date'), blank=True)
