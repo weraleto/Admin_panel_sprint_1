@@ -59,6 +59,3 @@ tables_dict = {
     'genre_film_work': FilmGenre,
     'person_film_work': PersonFilmWork
 }
-
-if __name__ == '__main__':
-    pass
