@@ -15,7 +15,7 @@ class PostgresSaver:
         self._schema = schema
 
     def truncate_data(self, table_name):
-        self.cur.execute(f'TRUNCATE content.{table_name}')
+        self.cur.execute(f'TRUNCATE {self._schema}.{table_name}')
 
     def save_data(self, table_name, field_list, data_obj):
         field_list_query = ', '.join(field_list)
@@ -45,8 +45,7 @@ class SQLiteLoader:
 
 def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
     """Основной метод загрузки данных из SQLite в Postgres"""
-    DEFAULT_SCHEMA = 'content'
-    postgres_saver = PostgresSaver(pg_conn, DEFAULT_SCHEMA)
+    postgres_saver = PostgresSaver(pg_conn, default_schema)
     sqlite_loader = SQLiteLoader(connection)
 
     num = 1
@@ -70,6 +69,8 @@ if __name__ == '__main__':
         'port': os.environ.get('DB_PORT', 5432),
         'options': '-c search_path=content',
     }
+    default_schema = 'content'
+
     with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
         load_from_sqlite(sqlite_conn, pg_conn)
 
