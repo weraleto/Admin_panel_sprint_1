@@ -1,5 +1,6 @@
 import sqlite3
 from dataclasses import asdict, fields
+import os
 
 import psycopg2
 from psycopg2.extensions import connection as _connection
@@ -62,11 +63,11 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
 
 if __name__ == '__main__':
     dsl = {
-        'dbname': 'movies',
-        'user': 'postgres',
-        'host': 'localhost',
-        'password': 'postgres123',
-        'port': '5432',
+        'dbname': os.environ.get('DB_NAME'),
+        'user': os.environ.get('DB_USER'),
+        'host': os.environ.get('DB_HOST', 'localhost'),
+        'password': os.environ.get('DB_PASSWORD'),
+        'port': os.environ.get('DB_PORT', 5432),
         'options': '-c search_path=content',
     }
     with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
