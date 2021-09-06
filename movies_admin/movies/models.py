@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
 
@@ -35,7 +35,7 @@ class Filmwork(TimeStampedMixin, models.Model):
     creation_date = models.DateField(_('creation date'), blank=True)
     certificate = models.TextField(_('certificate'), blank=True)
     file_path = models.FileField(_('file'), upload_to='film_works/', blank=True)
-    rating = models.FloatField(_('rating'), validators=[MinValueValidator(0)], blank=True)
+    rating = models.FloatField(_('rating'), validators=[MinValueValidator(0), MaxValueValidator(10)], blank=True)
     type = models.CharField(_('type'), max_length=20, choices=FilmworkType.choices)
 
     class Meta:
