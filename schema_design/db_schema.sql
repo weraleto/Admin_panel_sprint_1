@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS content.film_work (
     certificate TEXT,
     file_path TEXT,
     rating FLOAT,
-    type CHAR(255) not null,
+    type VARCHAR(10) not null,
     created_at timestamp with time zone,
     updated_at timestamp with time zone
 );
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS content.person_film_work (
     id uuid PRIMARY KEY,
     film_work_id uuid NOT NULL,
     person_id uuid NOT NULL,
-    role TEXT NOT NULL,
+    role VARCHAR(10) NOT NULL,
     created_at timestamp with time zone
 );
 
