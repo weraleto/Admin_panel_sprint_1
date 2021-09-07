@@ -75,7 +75,7 @@ class FilmworkGenre(models.Model):
 
     class Meta:
         db_table = "genre_film_work"
-        unique_together = [['film_work_id', 'genre_id']]
+        unique_together = (('film_work_id', 'genre_id'),)
 
 
 class PersonFilmwork(models.Model):
@@ -87,4 +87,4 @@ class PersonFilmwork(models.Model):
 
     class Meta:
         db_table = "person_film_work"
-        unique_together = [['film_work_id', 'person_id', 'role']]
+        unique_together = (('film_work_id', 'person_id', 'role'),)
