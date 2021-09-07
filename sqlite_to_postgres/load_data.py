@@ -23,6 +23,7 @@ class PostgresSaver:
             f'INSERT INTO {self._schema}.{table_name} ({field_list}) VALUES %s '
             f'ON CONFLICT (id) DO NOTHING',
             data,
+            page_size=800
         )
 
 
