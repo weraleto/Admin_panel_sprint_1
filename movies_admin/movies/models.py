@@ -39,7 +39,7 @@ class Filmwork(TimeStampedMixin):
     certificate = models.TextField(_('certificate'), blank=True)
     file_path = models.FileField(_('file'), upload_to='film_works/', blank=True)
     rating = models.FloatField(_('rating'), validators=[MinValueValidator(0), MaxValueValidator(10)], blank=True)
-    type = models.CharField(_('type'), max_length=20, choices=FilmworkType.choices)
+    type = models.CharField(_('type'), max_length=10, choices=FilmworkType.choices)
 
     class Meta:
         verbose_name = _('filmwork')
@@ -82,7 +82,7 @@ class PersonFilmwork(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.CharField(_('role'), max_length=20, choices=PersonRoles.choices)
+    role = models.CharField(_('role'), max_length=10, choices=PersonRoles.choices)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
